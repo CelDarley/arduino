@@ -52,6 +52,20 @@ void pisca(){
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis; 
+    digitalWrite(ledRX, !digitalRead(pinoVermelho)); 
+  }
+  if (currentMillis - previousMillis2 >= interval2) {
+    previousMillis2 = currentMillis;
+    digitalWrite(ledTX, !digitalRead(pinoAzul));
+  }
+ }
+
+
+
+void piscaTXRX(){
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis; 
     digitalWrite(pinoVermelho, !digitalRead(pinoVermelho)); 
   }
   if (currentMillis - previousMillis2 >= interval2) {
@@ -59,6 +73,11 @@ void pisca(){
     digitalWrite(pinoAzul, !digitalRead(pinoAzul));
   }
  }
+
+
+
+
+ 
 void loop() {
 
   analogWrite(pinPwm1,128);// ENVIA EM GND
@@ -129,13 +148,31 @@ void loop() {
         if((valorVCC > 100)&&(valorVCC < 150)){
           Serial.println("gnd INVERTIDO");
           tocarBuzzer=true;
-          pisca();
+          piscaTXRX();
         }
         if((valorGnd > 60) && ( valorGnd < 90)){
           Serial.println("vcc INVERTIDO");
           tocarBuzzer=true;
+          piscaTXRX();
+        }
+
+      
+
+        if((valorRX > 60) && ( valorRX < 90)){
+          Serial.println("RX INVERTIDO");
+          tocarBuzzer=true;
           pisca();
         }
+
+        if((valorTX > 100)&&(valorTX < 150)){
+          digitalWrite(ledRX,HIGH);
+          digitalWrite(buzzer, LOW);
+        }
+
+
+
+
+        
 
       if(tocarBuzzer==true){
         digitalWrite(buzzer, HIGH);
