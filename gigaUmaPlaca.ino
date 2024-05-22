@@ -136,16 +136,7 @@ void loop() {
           tocarBuzzer=true;
           pisca();
         }
-        if((valorRX > 100)&&(valorRX < 150)){
-          Serial.println("RX INVERTIDO");
-          tocarBuzzer=true;
-          pisca();
-        }
-        if((valorTX > 60) && ( valorTX < 90)){
-          Serial.println("TX INVERTIDO");
-          tocarBuzzer=true;
-          pisca();
-        }
+
       if(tocarBuzzer==true){
         digitalWrite(buzzer, HIGH);
       }
