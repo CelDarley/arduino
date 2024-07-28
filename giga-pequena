@@ -1,0 +1,248 @@
+// pinos que enviam dados de USB-C
+const int pin2 = 2; 
+const int pin3= 3; 
+const int pin4 = 4;
+const int pin5= 5; 
+const int pin6 = 6; 
+
+// pinos que recebem dados de USB-C
+const int pin7 = 7; 
+const int pin8= 8; 
+const int pin9 = 9;
+const int pin10 = 10; 
+const int pin11 = 11; 
+
+
+const int buzzer = 12; 
+const int pinBot = 13; 
+
+int state=0;
+
+unsigned long previousMillis = 0; 
+unsigned long previousMillis2 = 0; 
+unsigned long previousMillis3 = 0;
+ 
+unsigned long buttonInterval = 300;
+unsigned long lastButtonActivation;
+
+const long interval = 60; //4 HZ
+const long interval2 = 180; //4 HZ
+
+const int ledVd = A5;
+int ledVm = A4;
+
+bool alterado = false;
+
+int state7 = 0;
+int state8 = 0;
+int state9 = 0;
+int state10 = 0;
+int state11 = 0;
+
+int testeFio1 = 0;
+int testeFio2 = 0;
+int testeFio3 = 0;
+int testeFio4 = 0;
+int testeFio5 = 0;
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(pin2, OUTPUT); 
+  pinMode(pin3, OUTPUT); 
+  pinMode(pin4, OUTPUT); 
+  pinMode(pin5, OUTPUT);
+  pinMode(pin6, OUTPUT);
+
+  pinMode(pin7, INPUT_PULLUP);
+  pinMode(pin8, INPUT_PULLUP);
+  pinMode(pin9, INPUT_PULLUP);
+  pinMode(pin10, INPUT_PULLUP);
+  pinMode(pin11, INPUT_PULLUP);
+
+  pinMode(pinBot, INPUT_PULLUP);
+  pinMode(buzzer, OUTPUT);
+  pinMode(ledVd,OUTPUT);
+  pinMode(ledVm,OUTPUT);
+
+    
+}
+//void piscaVDVM(){
+//  unsigned long currentMillis = millis();
+//  if (currentMillis - previousMillis >= interval) {
+//    previousMillis = currentMillis; 
+//    digitalWrite(ledVd, !digitalRead(ledVd)); 
+//  }
+//  if (currentMillis - previousMillis2 >= interval2) {
+//    previousMillis2 = currentMillis;
+//    digitalWrite(ledVm, !digitalRead(ledVm));
+//  }
+// }
+
+void desligarLeds(){
+  digitalWrite(ledVd,LOW);
+  digitalWrite(ledVm,LOW);
+}
+  
+void disparaBuzzer(){
+  // int timeNow = 0;
+    digitalWrite(buzzer,HIGH);
+  //  if((millis() -timeNow) > 1000){
+  //    digitalWrite(buzzer,LOW);
+  //  }
+  //  timeNow = millis();
+
+}
+
+void loop() {
+
+  int errors[4] = {0,0,0,0};
+  boolean buzzerAtivo=false;
+  boolean testar=false;
+  
+  state = digitalRead(pinBot);
+ 
+ if(state==HIGH){
+
+   digitalWrite(pin2,HIGH);
+   digitalWrite(pin3,HIGH);
+   digitalWrite(pin4,HIGH);
+   digitalWrite(pin5,HIGH);
+   digitalWrite(pin6,HIGH);
+ 
+   state7 = digitalRead(pin7);     
+   state8 = digitalRead(pin8);     
+   state9 = digitalRead(pin9);     
+   state10 = digitalRead(pin10);     
+   state11 = digitalRead(pin11); 
+  
+    if(testeFio1==0){
+        // ############### TESTE FIO 1
+        if(state7==0){
+          errors[0] = 1;
+          Serial.println("fio 1 aberto");
+          digitalWrite(ledVd,LOW);
+          digitalWrite(ledVm,HIGH);
+          buzzerAtivo=true;
+        }
+        if(state7==1){
+          Serial.println("FIO 1 ok");
+          digitalWrite(ledVd,HIGH);
+          digitalWrite(ledVm,LOW);
+          buzzerAtivo=false;
+        }
+        arrayToString(errors, 4);
+       // 
+       testeFio1=testeFio1+1;
+       
+    } 
+    delay(50);
+  // ###############  TESTE FIO 2    
+
+if((testeFio2 ==0) && (testeFio1) > 0){
+        // ############### TESTE FIO 2
+        if(state8==0){
+          errors[0] = 1;
+          Serial.println("fio 2 aberto");
+          digitalWrite(ledVd,LOW);
+          digitalWrite(ledVm,HIGH);
+          buzzerAtivo=true;
+        }
+        if(state8==1){
+          Serial.println("FIO 2 ok");
+          digitalWrite(ledVd,HIGH);
+          digitalWrite(ledVm,LOW);
+          buzzerAtivo=false;
+        }
+        arrayToString(errors, 4);
+       
+       testeFio2=testeFio2+1;
+ } 
+delay(50);
+ if((testeFio3 ==0) && (testeFio2) > 0){
+        // ############### TESTE FIO 2
+        if(state9==0){
+          errors[0] = 1;
+          Serial.println("fio 3 aberto");
+          digitalWrite(ledVd,LOW);
+          digitalWrite(ledVm,HIGH);
+          buzzerAtivo=true;
+        }
+        if(state9==1){
+          Serial.println("FIO 3 ok");
+          digitalWrite(ledVd,HIGH);
+          digitalWrite(ledVm,LOW);
+          buzzerAtivo=false;
+        }
+        arrayToString(errors, 4);
+       
+       testeFio3=testeFio3+1;
+ } 
+delay(50);
+ if((testeFio4 ==0) && (testeFio3) > 0){
+        // ############### TESTE FIO 2
+        if(state10==0){
+          errors[0] = 1;
+          Serial.println("fio 4 aberto");
+          digitalWrite(ledVd,LOW);
+          digitalWrite(ledVm,HIGH);
+          buzzerAtivo=true;
+        }
+        if(state10==1){
+          Serial.println("FIO 4 ok");
+          digitalWrite(ledVd,HIGH);
+          digitalWrite(ledVm,LOW);
+          buzzerAtivo=false;
+        }
+        arrayToString(errors, 4);
+       
+       testeFio4=testeFio4+1;
+ } 
+delay(50);
+ if((testeFio5 ==0) && (testeFio4) > 0){
+        // ############### TESTE FIO 5
+        if(state10==0){
+          errors[0] = 1;
+          Serial.println("fio 5 aberto");
+          digitalWrite(ledVd,LOW);
+          digitalWrite(ledVm,HIGH);
+          buzzerAtivo=true;
+        }
+        if(state10==1){
+          Serial.println("FIO 5 ok");
+          digitalWrite(ledVd,HIGH);
+          digitalWrite(ledVm,LOW);
+          buzzerAtivo=false;
+        }
+        arrayToString(errors, 4);
+       
+       testeFio5=testeFio5+1;
+ } 
+
+      if(buzzerAtivo){
+        disparaBuzzer();
+      }
+    
+      
+    }// Fim botão apertado
+    
+    else { //se botão nao foi apertado
+    digitalWrite(buzzer,LOW);digitalWrite(pin2,LOW);digitalWrite(pin3,LOW);digitalWrite(pin4,LOW);digitalWrite(pin5,LOW);digitalWrite(pin6,LOW);
+    desligarLeds();
+    testeFio1=0;testeFio2=0;testeFio3=0;testeFio4=0;testeFio5=0;
+  
+  }
+}
+
+String arrayToString (int arr[], int size) {
+  String result = "[";
+  for(int i = 0; i<size; i++){
+    result += String(arr[i]);
+    if(i < size -1){
+      result += ", "; 
+    }
+  }
+  result += "]";
+  Serial.print(result);
+  return result;
+}
