@@ -145,8 +145,7 @@ void loop() {
 
 #### scketch do filho
 
-
-~~~arduino
+~~~c++
 #include <esp_now.h>
 #include <WiFi.h>
 
