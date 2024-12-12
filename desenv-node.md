@@ -9,7 +9,7 @@ ou
 0xC8, 0xF0, 0x9E, 0xF1, 0x74, 0x94
 
 #### scketch pai
-~~~arduino
+~~~c++
 #include <esp_now.h>
 #include <WiFi.h>
 #include <BluetoothSerial.h>
@@ -76,7 +76,7 @@ void loop() {
 ~~~
 
 #### scketch node filho
-~~~arduino
+~~~c++
 #include <esp_now.h>
 #include <WiFi.h>
 
