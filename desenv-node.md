@@ -286,3 +286,7 @@ def main():
 if __name__ == "__main__":
     main()
 ~~~
+#### Conectando o rasp por smb
+
+ smbclient //10.100.0.102/arquivos -U catena -m SMB3
+
