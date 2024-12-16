@@ -1,4 +1,14 @@
 ### nodes
+Configuração ESP32-S3-USB-OTG
+
+Placa -> ESP32-S3-USB-OTG
+USBMode ->  "USB-OTG"
+UploadMode -> "UART0 /HARDWARE  CDC'
+Partition Scheme -> "Default 4MB whit spiffs" (1.2MD APP/1.5 MB SPiffs)"
+Core Debug Level -> "Nenhum"
+Erase aLL FLASH BEFORE Scketch upload:"disabled"
+Port -> /dev/ttyACM0
+
 #### buscando o mac
 
 ~~~bash
